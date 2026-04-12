@@ -22,7 +22,7 @@
 
 3. **Initialize database**
    ```bash
-   node scripts/setup.js
+   node setup.js
    ```
 
 4. **Verify DB tables created**
@@ -40,15 +40,15 @@
    ```bash
    node -e "console.log(require('./AGENT_REGISTRY.json').length + ' agents registered')"
    ```
-   Expected: 6 entries
+   Expected: 7 entries
 
 7. **Mark boot complete**
    ```bash
-   node scripts/setup.js --mark-complete
+   node setup.js --mark-complete
    ```
 
 ## Post-Boot State
-- Database contains 6 agents and 18+ skills
+- Database contains 7 agents and 19+ skills
 - Client scenario `hr-services` loaded and active
 - All `phase_gate` values = `'pending'` except phase 0 = `'approved'`
 - `boot_status.completed` = 1
