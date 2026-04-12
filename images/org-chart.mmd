@@ -1,0 +1,21 @@
+---
+title: SAP FusionForge — Agent Org Chart
+---
+graph TD
+    SA[Solution Architect\nHub Agent]
+    BA[Business Analyst\nPhase 1]
+    DA[Discovery Advisor\nPhase 1]
+    CAP[CAP Developer\nPhase 2]
+    BUILD[Build Apps Developer\nPhase 2]
+    BPA[BPA Designer\nPhase 2]
+    ADMIN[BTP Admin\nPhase 3]
+
+    SA --> BA
+    SA --> DA
+    BA --> CAP
+    SA --> CAP
+    SA --> BUILD
+    SA --> BPA
+    CAP --> ADMIN
+    BUILD --> ADMIN
+    BPA --> ADMIN
