@@ -1,0 +1,9 @@
+{
+  "slug": "btp-admin",
+  "name": "BTP Admin",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["subaccount_config", "entitlement_manifest", "pr_submission"],
+  "artifact_types_consumed": [],
+  "permissions": ["open-pr"]
+}
