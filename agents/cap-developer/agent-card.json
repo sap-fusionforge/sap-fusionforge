@@ -1,0 +1,9 @@
+{
+  "slug": "cap-developer",
+  "name": "CAP Developer",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["cap_project", "odata_service", "deployment_manifest"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
