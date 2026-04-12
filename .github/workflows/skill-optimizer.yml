@@ -1,0 +1,30 @@
+# Weekly skill health scan + improvement PR proposals (ADAS pattern). / # Phase 0 scaffold only. Full implementation: Phase 3.
+name: SAP FusionForge — Skill Optimizer [Self-Improvement ADAS Pattern]
+
+on:
+  schedule:
+    - cron: '0 9 * * 1'
+  workflow_dispatch:
+
+jobs:
+  skill-optimizer:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scaffold placeholder (Phase 3)
+        run: echo 'skill-optimizer: Phase 3 implementation'
+      - name: Log registry state
+        run: |
+          echo "Reading SKILL_REGISTRY.json..."
+          cat SKILL_REGISTRY.json | python3 -c "import sys,json; d=json.load(sys.stdin); print(f'Registry version: {d["version"]}'); print(f'Skills tracked: {len(d["skills"])}')"
+      - name: Phase 3 implementation steps
+        run: |
+          echo "=== Phase 3 ADAS TODO ============================================"
+          echo "1. read-skill-health: scan SKILL_REGISTRY.json + traces/*.jsonl"
+          echo "2. propose-skill-fix: open fix/ PR for flagged skills (score < 2.5)"
+          echo "3. propose-skill-enhance: open enhance/ PR for skills score 3.0-3.9 ≥10 runs"
+          echo "4. detect-capture-candidates: identify agent-invented patterns → new SKILL.md"
+          echo "5. All PRs labeled skill-improvement/* for Org Observer to evaluate"
+          echo "================================================================"
+      - name: Optimizer run timestamp
+        run: echo "Optimizer check at $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
