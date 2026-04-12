@@ -1,0 +1,32 @@
+# Triggered on fusionforge.yml failure — opens fix/ PR. Phase 0 scaffold only. / # Full implementation: Phase 3 (Layer 2 self-improvement)
+
+name: SAP FusionForge — Skill Fix [Self-Improvement Layer 2]
+
+on:
+  workflow_run:
+    workflows: ['SAP FusionForge — Main Orchestration']
+    types: [completed]
+  workflow_dispatch:
+
+jobs:
+  skill-fix:
+    runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'failure' || github.event_name == 'workflow_dispatch' }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scaffold placeholder (Phase 3)
+        run: echo 'skill-fix: Phase 3 implementation'
+      - name: Log failed run reference
+        run: |
+          echo "Triggered by workflow run: ${{ github.event.workflow_run.id }}"
+          echo "Conclusion: ${{ github.event.workflow_run.conclusion }}"
+          echo "Phase 3 will: read failed job logs → diagnose → open fix/ PR with SKILL.md patch"
+      - name: Phase 3 implementation note
+        run: |
+          echo "=== Phase 3 TODO =================================================="
+          echo "1. Download failed run logs via GitHub API"
+          echo "2. Extract failing skill name from log"
+          echo "3. Read skills/<name>/RETRO.md for history"
+          echo "4. LLM call: diagnose + propose SKILL.md fix"
+          echo "5. Open fix/ branch + PR with label skill-improvement/fix"
+          echo "================================================================"
