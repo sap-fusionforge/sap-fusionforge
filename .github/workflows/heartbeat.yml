@@ -1,0 +1,46 @@
+# 6-hour watchdog — checks system health, opens GitHub issue on failure
+name: SAP FusionForge — Heartbeat Watchdog [OpenClaw]
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+env:
+  NODE_VERSION: '20'
+  GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+permissions:
+  contents: read
+  issues: write
+jobs:
+  heartbeat:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - name: Install dependencies
+        run: npm ci
+        if: ${{ hashFiles('package.json') != '' }}
+      - id: readiness
+        name: Run check-readiness.js
+        continue-on-error: true
+        run: |
+          node scripts/check-readiness.js --output json > /tmp/heartbeat-result.json 2>&1
+          EXIT_CODE=$?
+          echo "exit_code=$EXIT_CODE" >> $GITHUB_OUTPUT
+          echo "result=$(cat /tmp/heartbeat-result.json | head -1)" >> $GITHUB_OUTPUT
+          exit $EXIT_CODE
+      - name: Log healthy heartbeat
+        if: ${{ steps.readiness.outputs.exit_code == '0' }}
+        continue-on-error: true
+        run: node -e "const db=require('./scripts/client').db; db.prepare('INSERT INTO heartbeat_log (status,checked_at) VALUES (?,datetime(\"now\"))').run('healthy'); db.close()"
+      - name: Open failure issue
+        if: ${{ steps.readiness.outputs.exit_code != '0' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = `[HEARTBEAT FAILURE] ${new Date().toISOString()}`;
+            const body = `## Heartbeat Check Failed\n\n**Time:** ${new Date().toISOString()}\n**Result:** ```\n${process.env.RESULT}\n```\n\n**Action Required:** Investigate fusionforge.db and running agent state.`;
+            await github.rest.issues.create({ owner: context.repo.owner, repo: context.repo.repo, title, body, labels: ['heartbeat-failure', 'automated'] });
+        env:
+          RESULT: ${{ steps.readiness.outputs.result }}
