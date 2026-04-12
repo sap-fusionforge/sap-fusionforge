@@ -1,0 +1,9 @@
+{
+  "slug": "discovery-advisor",
+  "name": "Discovery Advisor",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["discovery_report", "requirements_brief", "capability_map"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
