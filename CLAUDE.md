@@ -44,11 +44,12 @@ sap-fusionforge/
 │   └── scenarios/       # hr-services.md, manufacturing.md, retail.md
 ├── docs/
 │   └── ARCHITECTURE.md  # System design — read at session start
-├── scripts/             # setup.js, verify-db.js, load-client.js
+├── scripts/             # verify-db.js, load-client.js, test-llm-key.js
 ├── .github/workflows/   # GitHub Actions (one per agent heartbeat)
+├── setup.js             # Repo root — DB init + boot gate
 ├── CONTEXT.md           # Locked decisions — read at session start
 ├── HANDOFFS.md          # Cross-agent work items
-├── AGENT_REGISTRY.json  # Agent manifest (6 entries)
+├── AGENT_REGISTRY.json  # Agent manifest (7 entries)
 └── fusionforge.db       # SQLite state store (gitignored)
 ```
 
