@@ -1,0 +1,62 @@
+schema: paperclip/v1
+
+agents:
+  business-analyst:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
+
+  solution-architect:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
+
+  cap-developer:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
+
+  build-apps-developer:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
+
+  bpa-designer:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
+
+  btp-admin:
+    inputs:
+      env:
+        LLM_API_KEY:
+          kind: secret
+          requirement: required
+        GITHUB_TOKEN:
+          kind: secret
+          requirement: required
