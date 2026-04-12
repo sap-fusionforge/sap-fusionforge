@@ -1,0 +1,9 @@
+{
+  "slug": "build-apps-developer",
+  "name": "Build Apps Developer",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["ui_spec", "app_artifact", "integration_config"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
