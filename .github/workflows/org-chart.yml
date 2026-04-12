@@ -1,0 +1,35 @@
+# Auto-renders images/org-chart.mmd → images/org-chart.png on push to main
+name: SAP FusionForge — Org Chart Auto-Render
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'agents/**'
+      - 'images/org-chart.mmd'
+env:
+  NODE_VERSION: '20'
+permissions:
+  contents: write
+jobs:
+  render-org-chart:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+      - name: Check if Mermaid file exists
+        id: check-mmd
+        run: echo "exists=$([ -f images/org-chart.mmd ] && echo true || echo false)" >> $GITHUB_OUTPUT
+      - name: Render Mermaid diagram
+        if: steps.check-mmd.outputs.exists == 'true'
+        uses: mermaid-js/mermaid-action@v4
+        with:
+          input: images/org-chart.mmd
+          output: images/org-chart.png
+      - name: Commit and push PNG
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: 'chore(ci): auto-render org-chart.png [skip ci]'
+          file_pattern: images/org-chart.png
