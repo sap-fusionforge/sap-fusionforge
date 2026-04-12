@@ -1,0 +1,62 @@
+{
+  "version": "0.1.0",
+  "generated": "2026-04-12",
+  "agents": [
+    {
+      "slug": "solution-architect",
+      "name": "Solution Architect",
+      "phase": 1,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["ADR", "discovery_alignment_report", "landscape_design"]
+    },
+    {
+      "slug": "business-analyst",
+      "name": "Business Analyst",
+      "phase": 1,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["user_story", "acceptance_criteria", "backlog_item"]
+    },
+    {
+      "slug": "discovery-advisor",
+      "name": "Discovery Advisor",
+      "phase": 1,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["discovery_report", "requirements_brief", "capability_map"]
+    },
+    {
+      "slug": "cap-developer",
+      "name": "CAP Developer",
+      "phase": 2,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["cap_project", "odata_service", "deployment_manifest"]
+    },
+    {
+      "slug": "build-apps-developer",
+      "name": "Build Apps Developer",
+      "phase": 2,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["ui_spec", "app_artifact", "integration_config"]
+    },
+    {
+      "slug": "bpa-designer",
+      "name": "BPA Designer",
+      "phase": 2,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["workflow_bpmn", "process_spec", "trigger_config"]
+    },
+    {
+      "slug": "btp-admin",
+      "name": "BTP Admin",
+      "phase": 3,
+      "status": "stub",
+      "skills": [],
+      "artifacts_produced": ["subaccount_config", "entitlement_manifest", "pr_submission"]
+    }
+  ]
+}
