@@ -1,0 +1,21 @@
+# Database
+fusionforge.db
+fusionforge.db-shm
+fusionforge.db-wal
+
+# Environment
+.env
+
+# Node
+node_modules/
+
+# Logs
+*.log
+logs/
+
+# Traces
+traces/*.jsonl
+
+# OS
+.DS_Store
+Thumbs.db
