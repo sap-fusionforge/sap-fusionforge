@@ -7,6 +7,9 @@
 <meta name="description" content="SAP FusionForge is an open-source project building the first enterprise SAP BTP Fusion Team as AI agents.">
 <meta name="keywords" content="SAP BTP, AI agents, Paperclip, CAP Node.js, SAP Build Apps, open source, fusion team">
 
+<!-- ENHANCEMENT 4: Canonical -->
+<link rel="canonical" href="https://sap-fusionforge.github.io/sap-fusionforge/">
+
 <!-- Open Graph / SEO -->
 <meta property="og:title" content="SAP FusionForge — AI Agent Company for SAP BTP">
 <meta property="og:description" content="The first enterprise SAP BTP Fusion Team as an AI agent company template for Paperclip. Built in public.">
@@ -40,8 +43,22 @@
     --card-border-dark: rgba(0, 212, 255, 0.15);
     }
 
+    /* ENHANCEMENT B: Dark Mode */
+    [data-theme="dark"] {
+    --light-bg: #0f1117;
+    --card-bg: #1a1f2e;
+    --border: rgba(255,255,255,0.08);
+    --text: #e2e8f0;
+    --muted: #94a3b8;
+    --sap-dark: #e2e8f0;
+    }
+
+    [data-theme="dark"] .section-alt {
+    background: #141824;
+    }
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html { scroll-behavior: smooth; }
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
 
     body {
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
@@ -86,11 +103,43 @@
     .nav-links { display: flex; align-items: center; gap: 20px; }
     .nav-link { color: #94a3b8; text-decoration: none; font-size: 0.9rem; transition: color 0.2s; }
     .nav-link:hover { color: var(--primary); }
+    .nav-link.active-nav { color: var(--primary); font-weight: 700; text-decoration: underline; }
     .nav-btn { padding: 6px 14px; font-size: 0.8rem; background: var(--primary); color: #000; border-radius: 6px; text-decoration: none; font-weight: 600; transition: transform 0.2s, box-shadow 0.2s; }
     .nav-btn:hover { transform: translateY(-1px); box-shadow: 0 0 10px rgba(0, 212, 255, 0.4); }
+    
+    /* ENHANCEMENT B: Dark Mode Toggle */
+    .theme-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    padding: 4px 8px;
+    color: #94a3b8;
+    transition: color 0.2s;
+    }
+    .theme-toggle:hover { color: var(--primary); }
+
+    /* ENHANCEMENT 1: Hamburger */
+    .hamburger { display: none; cursor: pointer; font-size: 1.5rem; color: white; }
+
     @media (max-width: 768px) {
-    .nav-links .nav-link { display: none; }
-    .nav-links { gap: 10px; }
+    .hamburger { display: block; }
+    .nav-links { 
+        display: none; 
+        position: absolute; 
+        top: 100%; 
+        left: 0; 
+        width: 100%; 
+        background: rgba(10, 14, 26, 0.98); 
+        flex-direction: column; 
+        padding: 20px; 
+        border-bottom: 1px solid rgba(255,255,255,0.1);
+        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+    }
+    .nav-links.active { display: flex; }
+    .nav-links .nav-link { display: block; margin: 10px 0; text-align: center; }
+    .nav-links .nav-btn { margin-top: 10px; }
+    .nav-links { gap: 0; }
     }
 
     /* ── CANVAS BACKGROUND ── */
@@ -234,7 +283,7 @@
     transition: transform 0.2s, box-shadow 0.2s;
     }
     .agent-card:hover { transform: translateY(-4px); box-shadow: var(--shadow-hover); }
-    .agent-header { padding: 20px 24px 16px; display: flex; align-items: center; gap: 14px; }
+    .agent-header { padding: 20px 24px 16px; display: flex; align-items: center; gap: 14px; position: relative; }
     .agent-avatar {
     width: 52px; height: 52px; border-radius: 14px;
     display: flex; align-items: center; justify-content: center;
@@ -242,6 +291,17 @@
     }
     .agent-name { font-size: 1rem; font-weight: 700; color: var(--sap-dark); }
     .agent-role { font-size: 12px; color: var(--muted); margin-top: 2px; }
+    /* ENHANCEMENT G: Phase Badge */
+    .phase-badge {
+    position: absolute;
+    bottom: 12px;
+    right: 16px;
+    font-size: 10px;
+    padding: 2px 8px;
+    border-radius: 100px;
+    color: white;
+    font-weight: 700;
+    }
     .agent-body { padding: 0 24px 20px; }
     .agent-desc { font-size: 0.92rem; color: var(--text); margin-bottom: 12px; }
     .agent-tags { display: flex; flex-wrap: wrap; gap: 6px; }
@@ -290,14 +350,14 @@
     align-items: center; gap: 12px; margin-top: 40px;
     }
     .flow-step-b {
-    background: rgba(255,255,255,0.05);
+    /* BUG 4 FIX: removed duplicate background */
+    background: white;
     border: 1px solid var(--primary);
     padding: 10px 18px;
     border-radius: 30px;
     display: flex; align-items: center; gap: 8px;
     font-size: 0.85rem; font-weight: 600;
     color: var(--text);
-    background: white;
     }
     .flow-step-b.hub { background: var(--secondary); color: white; border-color: var(--secondary); transform: scale(1.05); }
     .flow-arrow-b { color: var(--muted); font-size: 1.1rem; }
@@ -342,6 +402,9 @@
     font-weight: 700; padding: 2px 8px; border-radius: 4px; white-space: nowrap;
     }
 
+    /* BUG 1 FIX: Journey Grid */
+    .journey-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; margin-bottom: 40px; }
+
     /* ── REPO CARDS ── */
     .grid-3x3 { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
     .repo-card {
@@ -353,7 +416,9 @@
     .repo-card:hover { transform: translateY(-3px); box-shadow: var(--shadow-hover); }
     .repo-link { position: absolute; top: 12px; right: 12px; color: var(--muted); text-decoration: none; font-size: 1rem; opacity: 0; transition: opacity 0.2s; }
     .repo-card:hover .repo-link { opacity: 1; }
-    .repo-stars { font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 5px; display: block; }
+    /* ENHANCEMENT J: Stars as Links */
+    .repo-stars { font-size: 0.8rem; font-weight: 700; color: var(--muted); margin-bottom: 5px; display: block; text-decoration: none; }
+    .repo-stars:hover { color: var(--primary); }
     .repo-name { font-size: 1.1rem; font-weight: 700; margin-bottom: 8px; display: block; color: var(--sap-dark); }
     .repo-borrowed { font-size: 0.85rem; color: var(--muted); line-height: 1.4; }
 
@@ -378,10 +443,34 @@
     .timeline-item:nth-child(even) .timeline-content { text-align: left; }
     .timeline-dot { position: absolute; width: 16px; height: 16px; background: var(--light-bg); border: 2px solid var(--muted); border-radius: 50%; top: 20px; right: -8px; z-index: 2; }
     .timeline-item:nth-child(even) .timeline-dot { left: -8px; right: auto; }
+    
+    /* ENHANCEMENT 8: Active Dot */
+    @keyframes pulse-dot { 
+        0% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0.7); } 
+        70% { box-shadow: 0 0 0 10px rgba(0, 212, 255, 0); } 
+        100% { box-shadow: 0 0 0 0 rgba(0, 212, 255, 0); } 
+    }
+    .timeline-dot.dot-active {
+        border-color: var(--primary);
+        background: var(--primary);
+        animation: pulse-dot 2s infinite;
+    }
+
     .status-badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 0.7rem; font-weight: 700; text-transform: uppercase; margin-bottom: 5px; }
     .status-progress { background: rgba(0, 212, 255, 0.2); color: var(--primary); box-shadow: 0 0 10px rgba(0, 212, 255, 0.3); animation: pulse 2s infinite; }
     .status-next { background: rgba(124, 58, 237, 0.2); color: var(--secondary); }
     .status-future { background: rgba(148, 163, 184, 0.1); color: var(--muted); }
+
+    /* ENHANCEMENT I: Timeline Date */
+    .timeline-date {
+    float: right;
+    font-size: 0.72rem;
+    color: var(--muted);
+    background: var(--light-bg);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 10px;
+    }
 
     /* ── COMMUNICATION ── */
     .comms-card {
@@ -407,11 +496,95 @@
     }
     .stack-badge:hover { transform: translateY(-2px); box-shadow: var(--shadow); border-color: var(--sap-blue); }
 
+    /* ── ENHANCEMENT 7: CONTRIBUTE ── */
+    .contribute-section {
+        background: var(--bg-dark);
+        color: white;
+        padding: 80px 0;
+        text-align: center;
+    }
+    .contribute-section .section-title { color: white; }
+    .contribute-bullets {
+        text-align: left;
+        max-width: 400px;
+        margin: 0 auto 30px;
+        display: inline-block;
+        color: #94a3b8;
+    }
+    .contribute-bullets div { margin-bottom: 12px; font-size: 1.1rem; }
+
+    /* ENHANCEMENT D: FAQ Accordion */
+    .faq-item {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 12px;
+    overflow: hidden;
+    }
+    .faq-question {
+    padding: 20px 24px;
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 700;
+    color: var(--sap-dark);
+    }
+    .faq-question:hover { background: #f8fafc; }
+    .faq-indicator { font-size: 1.2rem; color: var(--muted); transition: transform 0.3s; }
+    .faq-item.open .faq-indicator { transform: rotate(45deg); }
+    .faq-answer {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease-out;
+    padding: 0 24px;
+    font-size: 0.95rem;
+    color: var(--text);
+    line-height: 1.6;
+    }
+    .faq-item.open .faq-answer {
+    max-height: 300px;
+    padding: 0 24px 20px;
+    }
+
+    /* ENHANCEMENT C: Floating Star Pill */
+    .floating-star {
+    position: fixed;
+    bottom: 90px;
+    left: 24px;
+    background: var(--primary);
+    color: #000;
+    padding: 10px 18px;
+    border-radius: 100px;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 4px 20px rgba(0,212,255,0.4);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s, transform 0.3s;
+    z-index: 900;
+    }
+    .floating-star.visible { opacity: 1; pointer-events: auto; }
+    .floating-star:hover { transform: translateY(-2px); }
+    @media (max-width: 768px) {
+    .floating-star { bottom: 80px; left: 16px; font-size: 0.8rem; }
+    }
+
+    /* ENHANCEMENT F: Web Share Button */
+    .share-btn {
+    background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+    color: white; padding: 10px 18px; border-radius: 6px; cursor: pointer;
+    font-size: 0.9rem; margin-bottom: 20px; transition: all 0.2s;
+    }
+    .share-btn:hover { background: var(--primary); color: #000; border-color: var(--primary); }
+    .footer-actions { display: flex; justify-content: center; gap: 12px; margin-bottom: 20px; }
+
     /* ── FOOTER ── */
-    footer { background: #050810; padding: 60px 0 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: var(--text-main); }
+    /* BUG 2 FIX: Color replaced */
+    footer { background: #050810; padding: 60px 0 20px; text-align: center; border-top: 1px solid rgba(255,255,255,0.05); color: #94a3b8; }
     .footer-cta { font-size: 2rem; font-weight: 700; margin-bottom: 12px; color: white; }
     .footer-sub { color: #94a3b8; margin-bottom: 30px; }
-    .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 40px; }
+    .social-links { display: flex; justify-content: center; gap: 16px; margin-bottom: 20px; }
     .social-icon {
     width: 40px; height: 40px; border-radius: 50%;
     background: rgba(255,255,255,0.1); display: flex;
@@ -420,6 +593,9 @@
     transition: background 0.2s, color 0.2s;
     }
     .social-icon:hover { background: var(--primary); color: #000; }
+    /* ENHANCEMENT 6 */
+    .social-note { font-size: 0.75rem; color: #64748b; margin-top: -10px; margin-bottom: 30px; }
+    
     .copy-link-btn {
     background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
     color: white; padding: 10px 18px; border-radius: 6px; cursor: pointer;
@@ -465,9 +641,34 @@
     .timeline-dot { left: 12px !important; right: auto !important; }
     .timeline-item:nth-child(odd) { justify-content: flex-start; }
     }
+
+    /* ENHANCEMENT E: prefers-reduced-motion */
+    @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+    .reveal { opacity: 1; transform: none; }
+    .timeline-item { opacity: 1; transform: none; }
+    #progress-bar { transition: none; }
+    html { scroll-behavior: auto; }
+    }
 </style>
 </head>
 <body>
+
+<!-- ENHANCEMENT B: Theme Init -->
+<script>
+(function() {
+    const stored = localStorage.getItem('theme');
+    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (stored === 'dark' || (!stored && prefersDark)) {
+        document.documentElement.setAttribute('data-theme', 'dark');
+    }
+})();
+</script>
 
 <!-- SCROLL PROGRESS -->
 <div id="progress-bar"></div>
@@ -478,7 +679,9 @@
         <span class="nav-logo-badge">SAP</span>
         <span class="nav-logo-text">FusionForge</span>
     </a>
-    <div class="nav-links">
+    <!-- ENHANCEMENT 1: Hamburger -->
+    <div class="hamburger" id="hamburger">☰</div>
+    <div class="nav-links" id="nav-links">
         <a href="#objective" class="nav-link">Objective</a>
         <a href="#why" class="nav-link">Why</a>
         <a href="#agents" class="nav-link">Agents</a>
@@ -487,6 +690,8 @@
         <a href="#borrowed" class="nav-link">Credit</a>
         <a href="#phases" class="nav-link">Roadmap</a>
         <a href="#tech" class="nav-link">Tech</a>
+        <!-- ENHANCEMENT B: Dark Mode Toggle -->
+        <button class="theme-toggle" id="theme-toggle" aria-label="Toggle Dark Mode">🌙</button>
         <a href="https://github.com/sap-fusionforge/sap-fusionforge" class="nav-btn" target="_blank">⭐ GitHub</a>
     </div>
 </nav>
@@ -521,7 +726,8 @@
         <span class="hero-tag">#BuildingInPublic</span>
     </div>
 
-    <div class="hero-stats">
+    <!-- ENHANCEMENT 3: Added ID for Observer -->
+    <div class="hero-stats" id="hero-stats">
         <div class="stat-item">
             <span class="stat-number" data-target="7">0</span>
             <span class="stat-label">Agents</span>
@@ -548,6 +754,9 @@
     </div>
     <p class="hero-disclaimer">Independent community project. Not affiliated with or endorsed by SAP SE.</p>
 </header>
+
+<!-- ENHANCEMENT H: Gradient Separator -->
+<div style="height: 80px; background: linear-gradient(to bottom, var(--bg-dark), var(--light-bg)); margin-top: -1px; pointer-events: none;"></div>
 
 <!-- 4. CORE OBJECTIVE SECTION -->
 <section id="objective" class="section">
@@ -636,6 +845,8 @@
                         <div class="agent-name">Business Analyst</div>
                         <div class="agent-role">Entry point · Citizen Dev role</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #6366f1;">Phase 1</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">The first agent to run. Reads the client config file, understands the business problem, and writes clear user stories (requirement cards) for the rest of the team.</p>
@@ -656,6 +867,8 @@
                         <div class="agent-name">Discovery Advisor</div>
                         <div class="agent-role">SA Personal Assistant · Research</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #0d9488;">Phase 1</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">Runs <strong>in parallel</strong> with the Solution Architect. Searches SAP Discovery Center for pre-built missions that match the client scenario — so the SA doesn't design what SAP already built.</p>
@@ -678,6 +891,8 @@
                         <div class="agent-name">Solution Architect</div>
                         <div class="agent-role">Hub · Orchestrator · Pro-code</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #0070f3;">Phase 1</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">The team lead. Reads user stories from the BA <strong>plus</strong> the Discovery Alignment Report from the Discovery Advisor — then designs the system and writes ADRs that reference existing SAP missions where possible.</p>
@@ -697,6 +912,8 @@
                         <div class="agent-name">CAP Developer</div>
                         <div class="agent-role">Backend services · Pro-code</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #0891b2;">Phase 2</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">Writes the backend engine. Creates SAP CAP projects with data models and OData APIs that other apps connect to. Uses PostgreSQL locally for demos.</p>
@@ -716,6 +933,8 @@
                         <div class="agent-name">Build Apps Developer</div>
                         <div class="agent-role">Frontend apps · Low-code</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #d97706;">Phase 2</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">Designs the user-facing app screens. Connects them to the CAP backend using OData. Uses SAP UI5 Web Components — the same visual building blocks SAP Build Apps uses.</p>
@@ -735,6 +954,8 @@
                         <div class="agent-name">BPA Designer</div>
                         <div class="agent-role">Process automation · Low-code</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #7c3aed;">Phase 2</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">Designs approval workflows and automated processes. Produces BPMN 2.0 XML — a universal standard that works in SAP Build Process Automation AND open-source Camunda.</p>
@@ -754,6 +975,8 @@
                         <div class="agent-name">BTP Admin</div>
                         <div class="agent-role">Platform operations · Pro-code</div>
                     </div>
+                    <!-- ENHANCEMENT G: Phase Badge -->
+                    <span class="phase-badge" style="background: #059669;">Phase 3</span>
                 </div>
                 <div class="agent-body">
                     <p class="agent-desc">Manages the SAP BTP platform itself. Writes scripts to set up subaccounts, assign entitlements, and configure connections. Includes Docker Compose for local demos.</p>
@@ -889,57 +1112,60 @@
         <div class="grid-3x3">
             <div class="repo-card reveal">
                 <a href="https://github.com/geekan/MetaGPT" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">45K★</span>
+                <!-- ENHANCEMENT J: Stars as Links -->
+                <a href="https://github.com/geekan/MetaGPT" target="_blank" class="repo-stars" title="View on GitHub">45K★</a>
                 <span class="repo-name">MetaGPT</span>
                 <div class="repo-borrowed">Typed artifact chain. Every skill declares artifact_type + output_schema.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/crewAIInc/crewAI" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">28K★</span>
+                <a href="https://github.com/crewAIInc/crewAI" target="_blank" class="repo-stars" title="View on GitHub">28K★</a>
                 <span class="repo-name">CrewAI</span>
                 <div class="repo-borrowed">Agent identity pattern. goal + backstory + allow_delegation in every agent.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/mem0ai/mem0" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">26K★</span>
+                <a href="https://github.com/mem0ai/mem0" target="_blank" class="repo-stars" title="View on GitHub">26K★</a>
                 <span class="repo-name">Mem0</span>
                 <div class="repo-borrowed">4-category memory structure: Approved / Rejected / Open / Deprecated.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/assafelovic/gpt-researcher" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">17K★</span>
+                <a href="https://github.com/assafelovic/gpt-researcher" target="_blank" class="repo-stars" title="View on GitHub">17K★</a>
                 <span class="repo-name">GPT-Researcher</span>
                 <div class="repo-borrowed">Sub-question planning phase for Discovery Advisor.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/stanford-oval/storm" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">18K★</span>
+                <a href="https://github.com/stanford-oval/storm" target="_blank" class="repo-stars" title="View on GitHub">18K★</a>
                 <span class="repo-name">Stanford STORM</span>
                 <div class="repo-borrowed">5-perspective Tier 3 analysis. Discovery Advisor attacks from 5 angles.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/langchain-ai/langgraph" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">10K★</span>
+                <a href="https://github.com/langchain-ai/langgraph" target="_blank" class="repo-stars" title="View on GitHub">10K★</a>
                 <span class="repo-name">LangGraph</span>
                 <div class="repo-borrowed">ProjectState TypeScript interface + phase_gate field.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/All-Hands-AI/OpenHands" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">38K★</span>
+                <a href="https://github.com/All-Hands-AI/OpenHands" target="_blank" class="repo-stars" title="View on GitHub">38K★</a>
                 <span class="repo-name">OpenHands</span>
                 <div class="repo-borrowed">Agent Permissions Matrix. Explicit allow-list per agent.</div>
             </div>
             <div class="repo-card reveal">
                 <a href="https://github.com/nickvdyck/adr-tools" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">3K★</span>
+                <a href="https://github.com/nickvdyck/adr-tools" target="_blank" class="repo-stars" title="View on GitHub">3K★</a>
                 <span class="repo-name">ADR-agent</span>
                 <div class="repo-borrowed">Multi-turn ADR drafting protocol + PII scan.</div>
             </div>
+            <!-- BUG 5 FIX -->
             <div class="repo-card reveal">
-                <a href="https://github.com/openclowd/openclaw" target="_blank" class="repo-link" title="View Repo">↗</a>
-                <span class="repo-stars">247K★</span>
-                <span class="repo-name">OpenClaw</span>
-                <div class="repo-borrowed">Heartbeat System (6h watchdog), BOOT.md first-run gate.</div>
+                <a href="https://github.com/paperclipai/companies" target="_blank" class="repo-link" title="View Repo">↗</a>
+                <!-- Paperclip AI: Keep as plain text -->
+                <span class="repo-stars">Early / ?</span>
+                <span class="repo-name">Paperclip AI</span>
+                <div class="repo-borrowed">BOOT.md first-run gate + agent heartbeat design pattern.</div>
             </div>
         </div>
     </div>
@@ -953,17 +1179,21 @@
         <p class="section-sub">Building in public. One phase at a time.</p>
 
         <div class="timeline" id="main-timeline">
+            <!-- ENHANCEMENT 8: Active dot -->
             <div class="timeline-item visible">
                 <div class="timeline-content">
                     <span class="status-badge status-progress">In Progress</span>
+                    <!-- ENHANCEMENT I: Date -->
+                    <span class="timeline-date">Apr 2026</span>
                     <h3>Phase 0: GitHub Org + Repo Scaffold</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">Setting up the organization and initial scaffolding.</p>
                 </div>
-                <div class="timeline-dot"></div>
+                <div class="timeline-dot dot-active"></div>
             </div>
             <div class="timeline-item">
                 <div class="timeline-content">
                     <span class="status-badge status-next">Next</span>
+                    <span class="timeline-date">May 2026</span>
                     <h3>Phase 0.5: setup.js Onboarding Script</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">One-script setup for API keys and environment.</p>
                 </div>
@@ -972,6 +1202,7 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <span class="status-badge status-future">Future</span>
+                    <span class="timeline-date">Jun 2026</span>
                     <h3>Phase 1: Business Analyst + SA + Discovery Advisor</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">The brain trust. Requirements and Research.</p>
                 </div>
@@ -980,6 +1211,7 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <span class="status-badge status-future">Future</span>
+                    <span class="timeline-date">Jul–Aug 2026</span>
                     <h3>Phase 2: CAP + Build Apps + BPA Developers</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">The build team. Backend, Frontend, and Automation.</p>
                 </div>
@@ -988,6 +1220,7 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <span class="status-badge status-future">Future</span>
+                    <span class="timeline-date">Sep 2026</span>
                     <h3>Phase 3: BTP Admin + Cross-Agent Workflows</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">The glue. Deployment and orchestration.</p>
                 </div>
@@ -996,6 +1229,7 @@
             <div class="timeline-item">
                 <div class="timeline-content">
                     <span class="status-badge status-future">Future</span>
+                    <span class="timeline-date">Oct 2026</span>
                     <h3>Phase 4: PR to paperclipai/companies</h3>
                     <p style="font-size: 0.9rem; color: var(--muted);">First enterprise SAP template in the ecosystem.</p>
                 </div>
@@ -1103,8 +1337,92 @@
     </div>
 </section>
 
+<!-- ENHANCEMENT 7: GET INVOLVED -->
+<section class="contribute-section">
+    <div class="container">
+        <div class="section-label" style="background: var(--primary); color: #000;">Get Involved</div>
+        <h2 class="section-title">Want to Build This With Me?</h2>
+        <div class="contribute-bullets">
+            <div>⭐ Star the repo</div>
+            <div>💡 Open an issue with ideas</div>
+            <div>🔧 Pick up a Phase 0 task</div>
+        </div>
+        <br>
+        <a href="https://github.com/sap-fusionforge/sap-fusionforge" class="btn btn-primary" target="_blank">GitHub Repo</a>
+    </div>
+</section>
+
+<!-- ENHANCEMENT D: FAQ SECTION -->
+<section class="section">
+    <div class="container">
+        <div class="section-label">FAQ</div>
+        <h2 class="section-title">Common Questions</h2>
+        <p class="section-sub">Quick answers for the curious.</p>
+
+        <div class="faq-list">
+            <div class="faq-item open">
+                <div class="faq-question">
+                    Is this an official SAP product?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    No. SAP FusionForge is an independent open-source community project. It is not affiliated with, endorsed by, or sponsored by SAP SE in any way. All SAP product names are trademarks of SAP SE.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Do I need an SAP license or account to use this?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    No. The demo stack runs entirely on open-source tools — PostgreSQL, Camunda, and SAP UI5 Web Components (MIT-licensed). You only need an SAP BTP account when you're ready to deploy to the real platform. The local demo works without any SAP account.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is the current status of the project?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    Phase 0 is in progress. We are setting up the GitHub organization and repo scaffold. Phase 1 (Business Analyst, Solution Architect, Discovery Advisor) comes next. Follow the GitHub repo to track progress.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    What is Paperclip AI?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    Paperclip is an open-source framework for building AI agent companies. Think of it like an operating system for multi-agent teams — each agent gets a job title, a budget, and tasks to complete. SAP FusionForge is submitted as a company template to the Paperclip ecosystem.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Can I contribute?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    Yes! Star the GitHub repo, open an issue with ideas, or pick up a task in the Phase 0 milestone. The project is fully open-source (MIT). All skill levels welcome — the project itself is designed to be educational.
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Why GitHub Actions for the runtime?
+                    <span class="faq-indicator">+</span>
+                </div>
+                <div class="faq-answer">
+                    Zero infrastructure. Every developer already has GitHub. No server to spin up, no cost to get started. GitHub Actions provides the scheduling, logging, and artifact storage that agents need to hand off work to each other.
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <!-- BACK TO TOP -->
 <a href="#" id="back-to-top" title="Back to Top">↑</a>
+
+<!-- ENHANCEMENT C: Floating GitHub Star Pill -->
+<a href="https://github.com/sap-fusionforge/sap-fusionforge" class="floating-star" id="floating-star" target="_blank" aria-label="Star SAP FusionForge on GitHub">⭐ Star on GitHub</a>
 
 <!-- FOOTER -->
 <footer>
@@ -1112,14 +1430,21 @@
         <h2 class="footer-cta">This is just the beginning.</h2>
         <p class="footer-sub">Follow the build. Every phase gets announced.</p>
         
-        <button class="copy-link-btn" id="copy-link-btn">📋 Copy Page Link</button>
+        <div class="footer-actions">
+            <button class="copy-link-btn" id="copy-link-btn">📋 Copy Page Link</button>
+            <!-- ENHANCEMENT F: Web Share Button -->
+            <button class="share-btn" id="share-btn" style="display: none;">📤 Share</button>
+        </div>
         
         <div class="social-links">
-            <a href="https://github.com/sap-fusionforge/sap-fusionforge" class="social-icon" title="GitHub">⭐</a>
-            <a href="#" class="social-icon" title="LinkedIn">in</a>
-            <a href="#" class="social-icon" title="X/Twitter">𝕏</a>
-            <a href="#" class="social-icon" title="SAP Community">SAP</a>
+            <a href="https://github.com/sap-fusionforge/sap-fusionforge" class="social-icon" aria-label="GitHub repository" title="GitHub">⭐</a>
+            <a href="#" class="social-icon" aria-label="LinkedIn" title="LinkedIn">in</a>
+            <a href="#" class="social-icon" aria-label="X / Twitter" title="X/Twitter">𝕏</a>
+            <a href="#" class="social-icon" aria-label="SAP Community" title="SAP Community">SAP</a>
         </div>
+        
+        <!-- ENHANCEMENT 6 -->
+        <p class="social-note">Links active soon — follow the GitHub repo for updates.</p>
         
         <div class="footer-bottom">
             <p>Built by Sashibhusan · Whitefield, Bangalore · 2026</p>
@@ -1129,6 +1454,30 @@
 </footer>
 
 <script>
+    // --- Theme Toggle (B) ---
+    const themeToggle = document.getElementById('theme-toggle');
+    const html = document.documentElement;
+    
+    function updateThemeButton() {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        themeToggle.textContent = isDark ? '☀️' : '🌙';
+    }
+    
+    themeToggle.addEventListener('click', () => {
+        const isDark = html.getAttribute('data-theme') === 'dark';
+        if (isDark) {
+            html.removeAttribute('data-theme');
+            localStorage.setItem('theme', 'light');
+        } else {
+            html.setAttribute('data-theme', 'dark');
+            localStorage.setItem('theme', 'dark');
+        }
+        updateThemeButton();
+    });
+    
+    // Initialize button state on load
+    updateThemeButton();
+
     // --- Particle Canvas ---
     const canvas = document.getElementById('bg-canvas');
     const ctx = canvas.getContext('2d');
@@ -1184,18 +1533,25 @@
             charIndex++;
             setTimeout(typeWriter, 60);
         } else {
-            document.getElementById('hero-sub').classList.add('visible');
-            setTimeout(() => {
-                document.getElementById('hero-cta').classList.add('visible');
-                document.getElementById('hero-tags').classList.add('visible');
-                document.getElementById('hero-stats').classList.add('visible');
-                startCounters();
-            }, 500);
+            // BUG 3 FIX: Call startCounters directly
+            startCounters();
         }
     }
     setTimeout(typeWriter, 500);
 
-    // --- Scroll Observer ---
+    // --- ENHANCEMENT 3: Counter Animation via IntersectionObserver ---
+    const statsSection = document.getElementById('hero-stats');
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                startCounters();
+                statsObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.5, once: true }); // Trigger when 50% visible
+    if(statsSection) statsObserver.observe(statsSection);
+
+    // --- Scroll Observer for Reveal ---
     const observerOptions = { threshold: 0.15, rootMargin: "0px 0px -50px 0px" };
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -1203,6 +1559,26 @@
         });
     }, observerOptions);
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // --- ENHANCEMENT 2: Active Nav Link ---
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-link');
+    
+    const navObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                // Remove active class from all
+                navLinks.forEach(link => link.classList.remove('active-nav'));
+                
+                // Add active class to current
+                const id = entry.target.getAttribute('id');
+                const activeLink = document.querySelector(`.nav-link[href="#${id}"]`);
+                if (activeLink) activeLink.classList.add('active-nav');
+            }
+        });
+    }, { threshold: 0.3 });
+    
+    sections.forEach(section => navObserver.observe(section));
 
     // --- Navbar Hide/Show ---
     let lastScrollTop = 0;
@@ -1215,6 +1591,14 @@
         if (scrollTop > 400) { backToTop.classList.add('visible'); } else { backToTop.classList.remove('visible'); }
         if (scrollTop > lastScrollTop && scrollTop > 100) { navbar.classList.add('hidden'); } else { navbar.classList.remove('hidden'); }
         lastScrollTop = scrollTop;
+        
+        // ENHANCEMENT C: Floating Star Pill visibility
+        const floatingStar = document.getElementById('floating-star');
+        if (scrollTop > window.innerHeight) {
+            floatingStar.classList.add('visible');
+        } else {
+            floatingStar.classList.remove('visible');
+        }
     });
 
     // --- Timeline ---
@@ -1233,7 +1617,11 @@
     if(timeline) timelineObserver.observe(timeline);
 
     // --- Counter Animation ---
+    let countersStarted = false;
     function startCounters() {
+        if(countersStarted) return;
+        countersStarted = true;
+        
         const counters = document.querySelectorAll('.stat-number');
         counters.forEach(counter => {
             const target = +counter.getAttribute('data-target');
@@ -1260,6 +1648,49 @@
             setTimeout(() => { copyBtn.textContent = originalText; }, 2000);
         });
     });
+
+    // --- ENHANCEMENT 1: Mobile Menu Toggle ---
+    const hamburger = document.getElementById('hamburger');
+    const navLinksContainer = document.getElementById('nav-links');
+    
+    hamburger.addEventListener('click', () => {
+        navLinksContainer.classList.toggle('active');
+    });
+
+    // Close menu when a link is clicked
+    navLinksContainer.querySelectorAll('.nav-link, .nav-btn').forEach(link => {
+        link.addEventListener('click', () => {
+            navLinksContainer.classList.remove('active');
+        });
+    });
+
+    // --- ENHANCEMENT D: FAQ Accordion ---
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+        const question = item.querySelector('.faq-question');
+        question.addEventListener('click', () => {
+            // Close others
+            faqItems.forEach(i => {
+                if (i !== item) i.classList.remove('open');
+            });
+            // Toggle current
+            item.classList.toggle('open');
+        });
+    });
+
+    // --- ENHANCEMENT F: Web Share API ---
+    const shareBtn = document.getElementById('share-btn');
+    if (navigator.share) {
+        shareBtn.style.display = 'inline-block';
+        shareBtn.addEventListener('click', () => {
+            navigator.share({
+                title: 'SAP FusionForge',
+                text: '7 AI agents. One SAP Fusion Team. Building in public.',
+                url: window.location.href
+            }).catch(console.error);
+        });
+    }
+
 </script>
 
 </body>
