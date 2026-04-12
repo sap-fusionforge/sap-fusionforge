@@ -1,0 +1,24 @@
+# fusion-config.yaml
+# Provider and model configuration for SAP FusionForge agents.
+# setup.js overwrites model values at runtime based on .env settings.
+
+provider: openai  # stub — override in .env (LLM_PROVIDER)
+
+models:
+  business-analyst: gpt-4o-mini
+  solution-architect: gpt-4o
+  cap-developer: gpt-4o
+  build-apps-developer: gpt-4o-mini
+  bpa-designer: gpt-4o-mini
+  btp-admin: gpt-4o
+
+fallback_model: gpt-4o-mini
+
+# Token budgets per agent (per skill run)
+token_budgets:
+  business-analyst: 4000
+  solution-architect: 8000
+  cap-developer: 8000
+  build-apps-developer: 4000
+  bpa-designer: 4000
+  btp-admin: 6000
