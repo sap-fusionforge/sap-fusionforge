@@ -1,0 +1,47 @@
+# Validates every PR to main: Paperclip dry-run + skill registry + DB schema
+name: SAP FusionForge — PR Validation
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [opened, synchronize, reopened]
+
+env:
+  NODE_VERSION: '20'
+
+jobs:
+  validate-import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+        if: hashFiles('package.json') != ''
+      - run: npx paperclipai company import --from . --dry-run
+        name: Paperclip import dry-run
+
+  validate-skill-registry:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - run: npm ci
+        if: hashFiles('package.json') != ''
+      - run: node scripts/validate-skill-registry.js
+        name: Validate SKILL_REGISTRY.json
+
+  validate-schema:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: sudo apt-get install -y sqlite3
+      - run: |
+          sqlite3 /tmp/test.db < scripts/schema.sql
+          echo 'Schema applied successfully'
+          sqlite3 /tmp/test.db '.tables'
+        name: Validate schema.sql
