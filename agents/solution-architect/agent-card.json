@@ -1,0 +1,9 @@
+{
+  "slug": "solution-architect",
+  "name": "Solution Architect",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["ADR", "discovery_alignment_report", "landscape_design"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
