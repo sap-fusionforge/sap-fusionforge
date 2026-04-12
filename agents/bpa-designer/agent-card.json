@@ -1,0 +1,9 @@
+{
+  "slug": "bpa-designer",
+  "name": "BPA Designer",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["workflow_bpmn", "process_spec", "trigger_config"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
