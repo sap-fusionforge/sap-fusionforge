@@ -1,0 +1,9 @@
+{
+  "slug": "business-analyst",
+  "name": "Business Analyst",
+  "version": "0.1.0-stub",
+  "capabilities": [],
+  "artifact_types_produced": ["user_story", "acceptance_criteria", "backlog_item"],
+  "artifact_types_consumed": [],
+  "permissions": []
+}
