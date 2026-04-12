@@ -1,0 +1,105 @@
+# SAP FusionForge — Main Orchestration Workflow
+# Phase 0 stub. Full implementation: Phase 3.
+# Job DAG: phase-gate → BA → SA + DA → phase-1-gate → CAP/BuildApps/BPA → BTP Admin
+name: SAP FusionForge — Main Orchestration
+
+on:
+  workflow_dispatch:
+    inputs:
+      scenario:
+        description: 'Scenario to run'
+        required: false
+        default: 'hr-services'
+        type: string
+      phase_override:
+        description: 'Phase override'
+        required: false
+        type: string
+  schedule:
+    - cron: '0 8 * * *'
+
+env:
+  FUSIONFORGE_DB: fusionforge.db
+  DEFAULT_SCENARIO: hr-services
+  NODE_VERSION: '20'
+
+concurrency:
+  group: fusionforge-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  phase-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      gate_status: ${{ steps.check-gate.outputs.gate_status }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - id: check-gate
+        run: node scripts/check-readiness.js --phase 1
+
+  business-analyst:
+    needs: phase-gate
+    if: needs.phase-gate.outputs.gate_status == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 1 — BA not yet implemented'
+
+  solution-architect:
+    needs: business-analyst
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 1 — SA not yet implemented'
+
+  discovery-advisor:
+    needs: phase-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 1 — DA not yet implemented'
+
+  phase-1-gate:
+    needs: [solution-architect, discovery-advisor]
+    runs-on: ubuntu-latest
+    outputs:
+      gate_status: ${{ steps.check-gate.outputs.gate_status }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+      - id: check-gate
+        run: node scripts/check-readiness.js --phase 2
+
+  cap-developer:
+    needs: phase-1-gate
+    if: needs.phase-1-gate.outputs.gate_status == 'approved'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 2 — CAP Dev not yet implemented'
+
+  build-apps-developer:
+    needs: phase-1-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 2 — Build Apps Dev not yet implemented'
+
+  bpa-designer:
+    needs: phase-1-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 2 — BPA Designer not yet implemented'
+
+  btp-admin:
+    needs: [cap-developer, build-apps-developer, bpa-designer]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo 'Phase 3 — BTP Admin not yet implemented'
