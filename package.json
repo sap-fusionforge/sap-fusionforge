@@ -1,0 +1,18 @@
+{
+  "name": "sap-fusionforge",
+  "version": "0.1.0",
+  "description": "SAP FusionForge — AI-powered SAP BTP Fusion Team template for Paperclip",
+  "type": "module",
+  "scripts": {
+    "setup": "node setup.js",
+    "check": "node check-readiness.js",
+    "reset": "node reset.js"
+  },
+  "dependencies": {
+    "@inquirer/prompts": "^7.0.0",
+    "dotenv": "^16.0.0"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
