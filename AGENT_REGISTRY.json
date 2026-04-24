@@ -1,30 +1,46 @@
 {
-  "version": "0.1.0",
-  "generated": "2026-04-12",
+  "version": "0.2.0",
+  "generated": "2026-04-13",
   "agents": [
-    {
-      "slug": "solution-architect",
-      "name": "Solution Architect",
-      "phase": 1,
-      "status": "stub",
-      "skills": [],
-      "artifacts_produced": ["ADR", "discovery_alignment_report", "landscape_design"]
-    },
     {
       "slug": "business-analyst",
       "name": "Business Analyst",
       "phase": 1,
-      "status": "stub",
-      "skills": [],
-      "artifacts_produced": ["user_story", "acceptance_criteria", "backlog_item"]
+      "status": "active",
+      "agent_card": "agents/business-analyst/agent-card.json",
+      "agents_md": "agents/business-analyst/AGENTS.md",
+      "skills": ["clarify-requirements", "requirement-doc"],
+      "artifacts_produced": ["brd", "user_story", "acceptance_criteria", "github_issue"]
+    },
+    {
+      "slug": "solution-architect",
+      "name": "Solution Architect",
+      "phase": 1,
+      "status": "active",
+      "agent_card": "agents/solution-architect/agent-card.json",
+      "agents_md": "agents/solution-architect/AGENTS.md",
+      "allow_delegation": true,
+      "dispatches_to": ["discovery-advisor", "cap-developer", "build-apps-developer", "bpa-designer"],
+      "skills": ["architecture-decision-record", "sap-discovery-briefing"],
+      "artifacts_produced": ["adr", "landscape_yaml", "discovery_alignment_report"]
     },
     {
       "slug": "discovery-advisor",
       "name": "Discovery Advisor",
       "phase": 1,
-      "status": "stub",
-      "skills": [],
-      "artifacts_produced": ["discovery_report", "requirements_brief", "capability_map"]
+      "status": "active",
+      "agent_card": "agents/discovery-advisor/agent-card.json",
+      "agents_md": "agents/discovery-advisor/AGENTS.md",
+      "reports_to": "solution-architect",
+      "dispatched_by": "solution-architect",
+      "parallel_with": ["solution-architect/design-landscape"],
+      "skills": ["sap-discovery"],
+      "artifacts_produced": ["discovery_alignment_report"],
+      "artifacts_consumed": ["user_story"],
+      "models": {
+        "planner": "claude-sonnet-4-6",
+        "retriever": "claude-haiku-4-5-20251001"
+      }
     },
     {
       "slug": "cap-developer",
