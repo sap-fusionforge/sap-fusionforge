@@ -1,5 +1,72 @@
 {
   "version": "0.1.0",
   "generated": "2026-04-13",
-  "skills": {}
+  "skills": {
+    "clarify-requirements": {
+      "slug": "clarify-requirements",
+      "agent": "business-analyst",
+      "artifact_type": "clarification_log",
+      "reads_client_md": true,
+      "version": "0.1.0",
+      "status": "active",
+      "skill_md": "skills/clarify-requirements/SKILL.md",
+      "output_path": "artifacts/clarification_log.md",
+      "phase": 1
+    },
+    "requirement-doc": {
+      "slug": "requirement-doc",
+      "agent": "business-analyst",
+      "artifact_type": "BRD",
+      "reads_client_md": true,
+      "version": "0.1.0",
+      "status": "active",
+      "skill_md": "skills/requirement-doc/SKILL.md",
+      "output_path": "artifacts/brd.md",
+      "phase": 1,
+      "depends_on": ["clarify-requirements"]
+    },
+    "architecture-decision-record": {
+      "slug": "architecture-decision-record",
+      "agent": "solution-architect",
+      "artifact_type": "ADR",
+      "reads_client_md": true,
+      "version": "0.1.0",
+      "status": "active",
+      "skill_md": "skills/architecture-decision-record/SKILL.md",
+      "output_path": "artifacts/adr-{id}.md",
+      "phase": 1,
+      "depends_on": ["sap-discovery-briefing"]
+    },
+    "sap-discovery-briefing": {
+      "slug": "sap-discovery-briefing",
+      "agent": "solution-architect",
+      "artifact_type": "discovery_alignment_report",
+      "reads_client_md": true,
+      "version": "0.1.0",
+      "status": "active",
+      "skill_md": "skills/sap-discovery-briefing/SKILL.md",
+      "output_path": "artifacts/discovery-briefing.md",
+      "phase": 1,
+      "depends_on": ["clarify-requirements"],
+      "runs_parallel_with": ["requirement-doc"]
+    },
+    "sap-discovery": {
+      "slug": "sap-discovery",
+      "agent": "discovery-advisor",
+      "artifact_type": "discovery_alignment_report",
+      "reads_client_md": true,
+      "version": "0.1.0",
+      "status": "active",
+      "skill_md": "skills/sap-discovery/SKILL.md",
+      "output_path": "docs/discovery-alignment-report.md",
+      "phase": 1,
+      "depends_on": ["clarify-requirements"],
+      "runs_parallel_with": ["sap-discovery-briefing"],
+      "tiers": ["catalog-match", "live-web-intel", "storm-redesign-advisory"],
+      "sub_question_planning": true,
+      "community_catalog": "docs/discovery-center-catalog.yaml",
+      "tool_integrations": ["tavily", "firecrawl"],
+      "env_vars": ["DISCOVERY_PLANNER_MODEL", "DISCOVERY_RETRIEVER_MODEL", "TAVILY_API_KEY"]
+    }
+  }
 }
