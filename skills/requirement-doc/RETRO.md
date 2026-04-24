@@ -1,0 +1,9 @@
+# RETRO — requirement-doc
+
+<!-- Episodic log. Append one episode per run that surfaces a lesson worth keeping. -->
+<!-- Format:
+## Episode N — YYYY-MM-DD
+**What worked:** ...
+**What failed:** ...
+**Change made:** ...
+-->
